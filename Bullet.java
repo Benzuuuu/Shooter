@@ -10,23 +10,16 @@ public class Bullet extends Actor
 {
     //Fields
     int speed;
-    int x;
-    int y;
-    int direction;
-    public static final int UP = -90;
+    public static final int UP = 270;
     public static final int DOWN = 90;
     public static final int LEFT = 180;
     public static final int RIGHT = 0;    
-    public int height;
-    public int width;
-    public Bullet(int speed, int x, int y, int direction, int height, int width) {
+    
+    public Bullet(int speed, int direction) {
         this.speed = speed;
-        this.x = x;
-        this.y = y;
-        this.direction = direction;
-        this.height = height;
-        this.width = width;
-        GreenfootImage BulletImage = new GreenfootImage(width, height);
+        setRotation(direction);
+        
+        GreenfootImage BulletImage = new GreenfootImage(5, 5);
         
         
         BulletImage.setColor(Color.RED);
@@ -43,12 +36,31 @@ public class Bullet extends Actor
     public void act() 
     {
         // move the bullet
+        move(speed);
         
         //wall collision
+        if(isTouching(Wall.class)) {
+            remove();
+            
+        }
         
         //player collision
+        else if(isTouching(Player.class)) {
+            remove();
+        }
         
         //edge of screen
+        else if(this.isAtEdge()){
+            remove();
+        }
+    }
+    
+    public void remove() {
+        //remove the object from the game board
+        Game world = (Game)getWorld();
+        world.removeObject(this);
         
-    }    
+        //remove the bullet from the bulletList
+        world.bulletList.remove(this);
+    }
 }

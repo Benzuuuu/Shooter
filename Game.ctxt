@@ -8,7 +8,7 @@ comment2.params=
 comment2.target=void\ prepare()
 comment2.text=public\ Game(String\ imageFile,\ String\ Left,\ String\ Right,\ String\ Down,\ String\ Up)\ {\r\n\ \ \ \ Up\ \=\ p1("W"),p2("up");\r\n\ \ \ \ Down\ \=\ p1("S"),p2("down");\r\n\ \ \ \ Left\ \=\ p1("A"),p2("left");\r\n\ \ \ \ Right\ \=\ p1("D"),p2("right");\r\n\r\n}
 comment3.params=
-comment3.target=void\ createWalls()
+comment3.target=void\ createLevel1()
 comment4.params=
 comment4.target=void\ act()
 numComments=5

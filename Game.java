@@ -15,7 +15,7 @@ public class Game extends World
     public List<Wall> wallList = new ArrayList<>();
     public List<Box> box;
     public List<Bullet> bulletList = new ArrayList<>();
-    public static final int UP = -90;
+    public static final int UP = 270;
     public static final int DOWN = 90;
     public static final int LEFT = 180;
     public static final int RIGHT = 0;
@@ -44,23 +44,23 @@ public class Game extends World
         p2 = new Player("soldier2.gif");
         addObject(p1, 25,16);
         addObject(p2, 556, 363);
-        createWalls();
-
+        createLevel1();
+//           createLevel2();
        
         
     }
     
-    public void createWalls() {
+    public void createLevel1() {
         //set up all the wall for this game
-        Wall currentWall = new Wall(5,200);
+        Wall currentWall = new Wall(10,200);
         wallList.add(currentWall);
         addObject(currentWall, 100, 193);
         
-        currentWall = new Wall(5,200);
+        currentWall = new Wall(10,200);
         wallList.add(currentWall);
         addObject(currentWall, 414,208);
         
-        currentWall = new Wall(400, 5);
+        currentWall = new Wall(400, 10);
         wallList.add(currentWall);
         addObject(currentWall, 272,336);
     }
@@ -68,64 +68,36 @@ public class Game extends World
     public void act() {
         //movement
         if (Greenfoot.isKeyDown("w")) {
-            p1.setRotation(UP);
-            if (p1.isAllowedToMove(UP)) {
-                p1.move(4);
-            }
+            p1.movePlayer(UP);
         }
         if (Greenfoot.isKeyDown("s")) {
-            p1.setRotation(DOWN);
-            if (p1.isAllowedToMove(DOWN)) {
-                p1.move(4);
-            }
+            p1.movePlayer(DOWN);
         }
         if (Greenfoot.isKeyDown("a")) {
-            p1.setRotation(LEFT);
-            if (p1.isAllowedToMove(LEFT)) {
-                p1.move(4);
-            }
+            p1.movePlayer(LEFT);
         }
         if (Greenfoot.isKeyDown("d")) {
-            p1.setRotation(RIGHT);
-            if (p1.isAllowedToMove(RIGHT)) {
-                p1.move(4);
-            }
+            p1.movePlayer(RIGHT);
         }
         if (Greenfoot.isKeyDown("up")) {
-            p2.setRotation(UP);
-            if (p2.isAllowedToMove(UP)) {
-                p2.move(4);
-            }
+            p2.movePlayer(UP);
         }
         if (Greenfoot.isKeyDown("down")) {
-            p2.setRotation(DOWN);
-            if (p2.isAllowedToMove(DOWN)) {
-                p2.move(4);
-            }
+            p2.movePlayer(DOWN);
         }
         if (Greenfoot.isKeyDown("left")) {
-            p2.setRotation(LEFT);
-            if (p2.isAllowedToMove(LEFT)) {
-                p2.move(4);
-            }
+            p2.movePlayer(LEFT);
         }
         if (Greenfoot.isKeyDown("right")) {
-            p2.setRotation(RIGHT);
-            if (p2.isAllowedToMove(RIGHT)) {
-                p2.move(4);
-            }
+            p2.movePlayer(RIGHT);
         }
         //shooting
         if(Greenfoot.isKeyDown("space")){
             p1.shoot();
-            Bullet currentB = new Bullet(90, p1.getX(), p1.getY(), p1.getRotation(), 10, 20);
-            bulletList.add(currentB);
-        
         }
         if(Greenfoot.isKeyDown(",")){
             p2.shoot();
-            Bullet currentB = new Bullet(90, p2.getX(), p2.getY(), p2.getRotation(), 10, 20);
-            bulletList.add(currentB);
+            
         }
     }
 }
