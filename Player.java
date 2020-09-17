@@ -10,12 +10,20 @@
     {
         //Fields
         public static final int UP = 270;
+        public static final int UP_LEFT = 225;
+        public static final int UP_RIGHT = 315;
         public static final int DOWN = 90;
         public static final int LEFT = 180;
-        public static final int RIGHT = 0;
+        public static final int RIGHT = 0; 
+        public static final int DOWN_RIGHT = 45;
+        public static final int DOWN_LEFT = 135;
         public long bulletTime = 0;
+        public String weapon; //"gun" "rocket launcher"
+        public int health = 100;
+        
         
         public Player(String imgFile) {
+            weapon = "gun";
             setImage(imgFile);
         }
         
@@ -69,20 +77,38 @@
     public void shoot()
     {
         if (getCurrentTime() - bulletTime > 200) {
+            Projectile projectile;
             int direction = getRotation();
-            Bullet currentB = new Bullet(5, direction);
-            Game gameWorld = (Game)getWorld();
-            gameWorld.bulletList.add(currentB);
-            if(direction == RIGHT){
-                gameWorld.addObject(currentB, (getX()+25), (getY()+12));
-            } else if(direction == LEFT){
-                gameWorld.addObject(currentB, (getX()-25), (getY()-12));
-                
-            } else if (direction == UP){
-                gameWorld.addObject(currentB, (getX()+12), (getY()-25));
-            } else if (direction == DOWN){
-                gameWorld.addObject(currentB, (getX()-12), (getY()+25));
+            //create a projectile
+            if (weapon.equals("gun")){
+                projectile = new Bullet(direction);
             }
+            else { //if (weapon.equals("rocket launcher")) {
+                projectile = new Rocket(direction);
+            }
+
+            //add projectile to projectileList
+            Game gameWorld = (Game)getWorld();
+            gameWorld.projectileList.add(projectile);
+            
+            //add projectile to the world
+            if(direction == RIGHT){
+                gameWorld.addObject(projectile, (getX()+25), (getY()+12));
+            } else if (direction == LEFT){
+                gameWorld.addObject(projectile, (getX()-25), (getY()-12));
+            } else if (direction == UP){
+                gameWorld.addObject(projectile, (getX()+12), (getY()-25));
+            } else if (direction == DOWN) {
+                gameWorld.addObject(projectile, (getX()-12), (getY()+25));
+            } else if (direction == UP_LEFT) {
+                gameWorld.addObject(projectile, (getX()-12), (getY()-25));
+            } else if (direction == UP_RIGHT){
+                gameWorld.addObject(projectile, (getX()+36), (getY()-30));
+            } else if (direction == DOWN_LEFT){
+                gameWorld.addObject(projectile, (getX()-36), (getY()+12));
+            } else if (direction == DOWN_RIGHT){
+                gameWorld.addObject(projectile, (getX()+12), (getY()+25));
+            } 
            
         //set the time of the last bullet fired (seconds)
             

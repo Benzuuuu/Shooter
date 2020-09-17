@@ -1,3 +1,4 @@
+
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.util.*;
 
@@ -14,11 +15,15 @@ public class Game extends World
     public Player p2;
     public List<Wall> wallList = new ArrayList<>();
     public List<Box> box;
-    public List<Bullet> bulletList = new ArrayList<>();
-    public static final int UP = 270;
-    public static final int DOWN = 90;
-    public static final int LEFT = 180;
-    public static final int RIGHT = 0;
+    public List<Projectile> projectileList = new ArrayList<>();
+        public static final int UP = 270;
+        public static final int UP_LEFT = 225;
+        public static final int UP_RIGHT = 315;
+        public static final int DOWN = 90;
+        public static final int LEFT = 180;
+        public static final int RIGHT = 0;
+        public static final int DOWN_RIGHT = 45;
+        public static final int DOWN_LEFT = 135;
 
     /**
      * Constructor for objects of class Game.
@@ -39,7 +44,7 @@ public class Game extends World
     Right = p1("D"),p2("right");
 
     }*/
-    public void prepare() {
+        public void prepare() {
         p1 = new Player("soldier1.gif");
         p2 = new Player("soldier2.gif");
         addObject(p1, 25,16);
@@ -65,40 +70,81 @@ public class Game extends World
         addObject(currentWall, 272,336);
     }
 
-    public void act() {
-        //movement
-        if (Greenfoot.isKeyDown("w")) {
-            p1.movePlayer(UP);
+    public void playerMovement() {
+                if (Greenfoot.isKeyDown("w")) {
+            if (Greenfoot.isKeyDown("a")) { //up-left
+                p1.movePlayer(UP_LEFT);
+            } else if (Greenfoot.isKeyDown("d")) { //up-right
+                p1.movePlayer(UP_RIGHT);
+            } else { //up
+                p1.movePlayer(UP);
+            }
         }
-        if (Greenfoot.isKeyDown("s")) {
-            p1.movePlayer(DOWN);
+        else if (Greenfoot.isKeyDown("s")) {
+            if (Greenfoot.isKeyDown("a")) { 
+                p1.movePlayer(DOWN_LEFT);
+            } else if (Greenfoot.isKeyDown("d")) { 
+                p1.movePlayer(DOWN_RIGHT);
+            } else { 
+                p1.movePlayer(DOWN);
+            }
         }
-        if (Greenfoot.isKeyDown("a")) {
+        else if (Greenfoot.isKeyDown("a")) {
             p1.movePlayer(LEFT);
         }
-        if (Greenfoot.isKeyDown("d")) {
+        else if (Greenfoot.isKeyDown("d")) {
             p1.movePlayer(RIGHT);
         }
+        
         if (Greenfoot.isKeyDown("up")) {
-            p2.movePlayer(UP);
+           if (Greenfoot.isKeyDown("left")) { 
+                p2.movePlayer(UP_LEFT);
+            } else if (Greenfoot.isKeyDown("right")) { 
+                p2.movePlayer(UP_RIGHT);
+            } else { 
+                p2.movePlayer(UP);
+            }
         }
-        if (Greenfoot.isKeyDown("down")) {
-            p2.movePlayer(DOWN);
+        else if (Greenfoot.isKeyDown("down")) {
+            if (Greenfoot.isKeyDown("left")) { 
+                p2.movePlayer(DOWN_LEFT);
+            } else if (Greenfoot.isKeyDown("right")) { 
+                p2.movePlayer(DOWN_RIGHT);
+            } else { 
+                p2.movePlayer(DOWN);
+            }
         }
-        if (Greenfoot.isKeyDown("left")) {
+        else if (Greenfoot.isKeyDown("left")) {
             p2.movePlayer(LEFT);
         }
-        if (Greenfoot.isKeyDown("right")) {
+        else if (Greenfoot.isKeyDown("right")) {
             p2.movePlayer(RIGHT);
         }
+    }
+    
+    public void act() {
+        //movement
+        playerMovement();
+        
         //shooting
-        if(Greenfoot.isKeyDown("space")){
+        if(Greenfoot.isKeyDown("space")) {
             p1.shoot();
         }
         if(Greenfoot.isKeyDown(",")){
             p2.shoot();
-            
         }
+                
+        //random weapon box
+        createRandomWeaponBox();
     }
+    
+    public void createRandomWeaponBox() {
+/*        Box box = createBoxActor();
+        while (box.isTouching(Wall.class) || box.isTouching(Player.class) {
+            box.remove();
+            box = createBoxActor();
+        }
+*/    }
+    
 }
 
