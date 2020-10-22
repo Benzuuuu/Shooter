@@ -14,8 +14,9 @@ public class Game extends World
     public Player p1;
     public Player p2;
     public List<Wall> wallList = new ArrayList<>();
-    public List<Box> box;
+    public Box box;
     public List<Projectile> projectileList = new ArrayList<>();
+    
         public static final int UP = 270;
         public static final int UP_LEFT = 225;
         public static final int UP_RIGHT = 315;
@@ -34,6 +35,7 @@ public class Game extends World
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
         super(600, 400, 1);
         prepare();
+       
         
     }
     
@@ -71,7 +73,8 @@ public class Game extends World
     }
 
     public void playerMovement() {
-                if (Greenfoot.isKeyDown("w")) {
+        
+        if (Greenfoot.isKeyDown("w")) {
             if (Greenfoot.isKeyDown("a")) { //up-left
                 p1.movePlayer(UP_LEFT);
             } else if (Greenfoot.isKeyDown("d")) { //up-right
@@ -127,24 +130,50 @@ public class Game extends World
         playerMovement();
         
         //shooting
+        playerShooting();
+                
+        //random weapon box
+        createRandomWeaponBox();
+    }
+    
+    public void playerShooting(){
         if(Greenfoot.isKeyDown("space")) {
             p1.shoot();
         }
         if(Greenfoot.isKeyDown(",")){
             p2.shoot();
         }
-                
-        //random weapon box
-        createRandomWeaponBox();
+    }
+    public void createRandomWeaponBox() {
+        if (box == null) {
+            if (doRandomlyBuildBox()) {
+                box = new Box();
+                addBoxToWorld();
+                //create a box actor that isn't touching a wall or player
+                while (!box.isLocationValid()) {
+                    addBoxToWorld();
+                }
+            }
+        }
     }
     
-    public void createRandomWeaponBox() {
-/*        Box box = createBoxActor();
-        while (box.isTouching(Wall.class) || box.isTouching(Player.class) {
-            box.remove();
-            box = createBoxActor();
-        }
-*/    }
+    public boolean doRandomlyBuildBox() {
+        return true;
+    }
+    
+    public void addBoxToWorld(){
+     addObject(box,getRandomXLocation(),getRandomYLocation());    
+    }
+    
+    public int getRandomXLocation() {
+        int range = getWidth() - 20;
+        return Greenfoot.getRandomNumber(range) + 10; 
+    }
+    
+    public int getRandomYLocation() {
+        int range = getHeight() - 20;
+        return Greenfoot.getRandomNumber(range) + 10; 
+    }
     
 }
 

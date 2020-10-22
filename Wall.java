@@ -21,6 +21,8 @@ public class Wall extends Actor{
         this.width = width;
         //TODO: visual image
         
+        
+        
         //create an empty transparent image with same dimensions as this wall
         GreenfootImage wallImage = new GreenfootImage(width, height);
         

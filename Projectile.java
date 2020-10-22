@@ -10,7 +10,7 @@ public class Projectile extends Actor
 {
     //Fields
     int speed;
-    int damage; //bullet = 10, rocket = 30
+    double damage; //bullet = 10, rocket = 30
 
     public static final int UP = 270;
     public static final int UP_LEFT = 225;
@@ -21,7 +21,7 @@ public class Projectile extends Actor
     public static final int DOWN_RIGHT = 45;
     public static final int DOWN_LEFT = 135;
     
-    public Projectile(int speed, int direction, int damage) {
+    public Projectile(int speed, int direction, double damage) {
         this.damage = damage;
         this.speed = speed;
         setRotation(direction);
@@ -48,14 +48,22 @@ public class Projectile extends Actor
         else if(isTouching(Player.class)) {
             //remove health
             //get the player object of the player who was hit
+            GreenfootSound hitSound = new GreenfootSound("playerHit.wav");
+            hitSound.play();
             Game gameWorld = (Game)getWorld();
             if (intersects(gameWorld.p1)) {
                 gameWorld.p1.health -= damage;
-                System.out.println("player 1: " + gameWorld.p1.health);
+                
+                if(gameWorld.p1.health < 1){
+                    Greenfoot.setWorld(new Game());
+                }
             }
             else if (intersects(gameWorld.p2)) {
                 gameWorld.p2.health -= damage;
-                System.out.println("player 2: " + gameWorld.p2.health);
+                
+                if(gameWorld.p2.health < 1){
+                    Greenfoot.setWorld(new Game());
+                }
             }
             remove();
         }

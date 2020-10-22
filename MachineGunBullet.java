@@ -6,17 +6,17 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class Rocket extends Projectile
+public class MachineGunBullet extends Projectile
 {
     /**
      * Act - do whatever the Rocket wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
-    public Rocket(int direction) {
-        super(3, direction, 30);
+    public MachineGunBullet(int direction) {
+        super(8, direction, 2);
 
-        GreenfootImage BulletImage = new GreenfootImage(10, 10);
-        BulletImage.setColor(Color.BLUE);
+        GreenfootImage BulletImage = new GreenfootImage(3, 3);
+        BulletImage.setColor(Color.MAGENTA);
         BulletImage.fill();
         setImage(BulletImage);
         
