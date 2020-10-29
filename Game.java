@@ -11,6 +11,8 @@ import java.util.*;
 public class Game extends World
 {
     //FIELDS
+    public int currentFrame;
+    public int frameOfBoxPickUp;
     public Player p1;
     public Player p2;
     public List<Wall> wallList = new ArrayList<>();
@@ -126,6 +128,8 @@ public class Game extends World
     }
     
     public void act() {
+        currentFrame++;
+                
         //movement
         playerMovement();
         
@@ -134,6 +138,8 @@ public class Game extends World
                 
         //random weapon box
         createRandomWeaponBox();
+        
+        
     }
     
     public void playerShooting(){
@@ -146,7 +152,7 @@ public class Game extends World
     }
     public void createRandomWeaponBox() {
         if (box == null) {
-            if (doRandomlyBuildBox()) {
+            if (doBuildBox()) {
                 box = new Box();
                 addBoxToWorld();
                 //create a box actor that isn't touching a wall or player
@@ -157,8 +163,11 @@ public class Game extends World
         }
     }
     
-    public boolean doRandomlyBuildBox() {
-        return true;
+    public boolean doBuildBox() {
+        int waitingFrames = 1000;
+        //currentFrame =5000
+        //frameOfBoxPickUp=4000
+        return frameOfBoxPickUp + waitingFrames < currentFrame;
     }
     
     public void addBoxToWorld(){
